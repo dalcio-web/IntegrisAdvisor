@@ -1,0 +1,148 @@
+---
+const dotAsset = '/assets/section-dot.svg';
+---
+
+<section
+  class="nr1-alert"
+  id="nr1"
+  data-node-id="45:4"
+  style="position: relative; isolation: isolate; overflow: hidden; background: transparent;"
+>
+  <div
+    class="nr1-alert__background"
+    data-reveal
+    data-reveal-delay="0"
+    aria-hidden="true"
+    style="position: absolute; z-index: 0; inset: 0; border-radius: inherit; background: rgba(214, 167, 62, .8); pointer-events: none;"
+  ></div>
+
+  <div class="nr1-alert__content" style="position: relative; z-index: 1;">
+    <div class="nr1-alert__eyebrow" data-reveal data-reveal-delay="120">
+      <img class="section-dot" src={dotAsset} alt="" width="15" height="15" />
+      <span>Alerta Geral</span>
+    </div>
+
+    <h2 data-reveal data-reveal-delay="240">O prazo da NR-1 já acabou. <strong>Sua empresa está exposta?</strong></h2>
+
+    <p class="nr1-alert__description" data-reveal data-reveal-delay="360">
+      A Portaria MTE nº 1.419/2024 atualizou a NR-1, tornando obrigatório o gerenciamento de Fatores de Risco Psicossociais (estresse, burnout, assédio) para todas as empresas com regime CLT.
+    </p>
+
+    <div class="nr1-alert__notices">
+      <p class="notice notice--medium" data-reveal data-reveal-delay="480">A fiscalização passou a ser plenamente punitiva em 26 de maio de 2026.</p>
+      <p class="notice notice--wide" data-reveal data-reveal-delay="600">Nossa assessoria elabora o PGR, mapeia riscos e capacita sua liderança para evitar passivos trabalhistas.</p>
+      <p class="notice notice--small" data-reveal data-reveal-delay="720">Multas chegam a até R$ 6.708,08 por trabalhador exposto.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .nr1-alert {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    width: min(calc(100% - 48px), 1150px);
+    min-height: 582px;
+    margin: 150px auto 0;
+    padding: 44px 19px;
+    border-radius: 25px;
+    background: transparent;
+    color: var(--color-white);
+    text-align: center;
+    scroll-margin-top: 110px;
+  }
+
+  .nr1-alert__background {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    border-radius: inherit;
+    background: rgba(214, 167, 62, .8);
+    pointer-events: none;
+  }
+
+  .nr1-alert > :not(.nr1-alert__background) {
+    position: relative;
+    z-index: 1;
+  }
+
+  .nr1-alert__eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    min-height: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.55;
+  }
+
+  .nr1-alert__eyebrow img {
+    display: block;
+    width: 15px;
+    height: 15px;
+  }
+
+  h2 {
+    width: min(100%, 929px);
+    margin: 32px auto 0;
+    font-family: var(--font-display);
+    font-size: clamp(30px, 3vw, 38px);
+    font-weight: 400;
+    line-height: 45px;
+    letter-spacing: -1.14px;
+  }
+
+  h2 strong { font-weight: 700; }
+
+  .nr1-alert__description {
+    width: min(100%, 812px);
+    margin: 50px auto 0;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.55;
+  }
+
+  .nr1-alert__notices {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: min(100%, 1112px);
+    margin: 50px auto 0;
+  }
+
+  .notice {
+    display: flex;
+    min-height: 69px;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 28px;
+    border: 1.5px solid rgba(255, 255, 255, .9);
+    border-radius: 35px;
+    background: rgba(34, 22, 0, .2);
+    box-shadow: inset 0 0 7px 1px rgba(255, 255, 255, .45);
+    color: rgba(255, 255, 255, .8);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.55;
+  }
+
+  .notice--medium { width: min(100%, 700px); }
+  .notice--wide { width: min(100%, 1040px); }
+  .notice--small { width: min(100%, 590px); }
+
+  @media (max-width: 760px) {
+    .nr1-alert {
+      width: calc(100% - 32px);
+      min-height: auto;
+      padding: 30px 20px 36px;
+    }
+
+    h2 { line-height: 1.15; }
+    .nr1-alert__description { margin-top: 34px; font-size: 16px; }
+    .nr1-alert__notices { margin-top: 38px; }
+    .notice { width: 100%; min-height: 64px; padding: 14px 20px; font-size: 15px; }
+  }
+</style>

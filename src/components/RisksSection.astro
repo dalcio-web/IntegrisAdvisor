@@ -1,0 +1,95 @@
+---
+import RiskCard from './RiskCard.astro';
+
+const assets = {
+  fines: '/assets/risk-fines.svg',
+  operations: '/assets/risk-operations.svg',
+  business: '/assets/risk-business.svg',
+  reputation: '/assets/risk-reputation.svg',
+  partners: '/assets/risk-partners.svg',
+  fraud: '/assets/risk-fraud.svg',
+};
+---
+
+<section class="risks" id="riscos" data-node-id="46:302">
+  <header class="risks__intro">
+    <h2 data-reveal data-reveal-delay="0">A maioria dos empresários só descobre que precisava de compliance quando já é tarde demais.</h2>
+    <p data-reveal data-reveal-delay="140">
+      Não importa o segmento. Se você tem um negócio, você precisa estar em conformidade.
+      <strong>Veja os riscos invisíveis que sua empresa corre hoje</strong>
+    </p>
+  </header>
+
+  <div class="risks__grid">
+    <RiskCard icon={assets.fines} title="Multas Milionárias" framed revealDelay={220}>
+      Sua empresa pode sofrer multas da ANPD por violação à LGPD — até 2% do faturamento anual (limite de R$ 50 milhões por infração).
+    </RiskCard>
+
+    <RiskCard icon={assets.operations} title={'Paralisação\ndas Operações'} framed revealDelay={340}>
+      A falta de conformidade gera exposição a processos trabalhistas, cíveis e regulatórios que podem paralisar as operações.
+    </RiskCard>
+
+    <RiskCard icon={assets.business} title="Perda de Negócios" framed revealDelay={460}>
+      Há o risco de perda de contratos por não atender requisitos de conformidade exigidos por grandes clientes e licitações.
+    </RiskCard>
+
+    <RiskCard icon={assets.reputation} title="Danos à Reputação" solidFrame iconWidth={45} iconHeight={41} revealDelay={580}>
+      A ausência de governança pode causar danos irreversíveis à reputação — um único escândalo pode destruir a confiança de clientes e parceiros.
+    </RiskCard>
+
+    <RiskCard icon={assets.partners} title={'Risco Pessoal\ndos Sócios'} solidFrame iconWidth={43} iconHeight={46} revealDelay={700}>
+      Sem a devida blindagem jurídica, pode ocorrer a responsabilização pessoal dos sócios por passivos da empresa.
+    </RiskCard>
+
+    <RiskCard icon={assets.fraud} title={'Fraudes e\nAssédio Interno'} solidFrame iconWidth={38} iconHeight={43} revealDelay={820}>
+      Ausência de canal de denúncia estruturado, favorecendo fraudes e assédio no ambiente de trabalho.
+    </RiskCard>
+  </div>
+</section>
+
+<style>
+  .risks {
+    width: min(calc(100% - 48px), 1265px);
+    margin: 150px auto 0;
+    scroll-margin-top: 110px;
+  }
+
+  .risks__intro { text-align: center; }
+
+  h2 {
+    width: min(100%, 922px);
+    margin: 0 auto;
+    font-family: var(--font-display);
+    font-size: clamp(32px, 3vw, 38px);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -1.14px;
+  }
+
+  .risks__intro p {
+    width: min(100%, 673px);
+    margin: 54px auto 0;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  .risks__intro strong { display: block; font-weight: 600; }
+
+  .risks__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 25px;
+    row-gap: 33px;
+    margin-top: 55px;
+  }
+
+  @media (max-width: 900px) {
+    .risks__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  }
+
+  @media (max-width: 620px) {
+    .risks { width: calc(100% - 32px); }
+    .risks__intro p { margin-top: 30px; }
+    .risks__grid { grid-template-columns: 1fr; margin-top: 36px; }
+  }
+</style>

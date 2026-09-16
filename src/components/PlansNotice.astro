@@ -1,0 +1,40 @@
+<div class="plans-closing-notice" data-reveal>
+  <p>
+    A <strong>Assessoria Especializada em NR-1</strong> pode ser contratada de forma avulsa ou em conjunto aos planos acima.
+  </p>
+</div>
+
+<style>
+  .plans-closing-notice {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    width: 100%;
+    min-height: 160px;
+    margin-top: 45px;
+    place-items: center;
+    padding: 26px 32px;
+    border-radius: 0 0 50px 50px;
+    background: #000;
+  }
+
+  p {
+    width: min(100%, 1095px);
+    margin: 0;
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  strong { font-weight: 500; }
+
+  @media (max-width: 680px) {
+    .plans-closing-notice {
+      min-height: 130px;
+      padding: 23px;
+      border-radius: 0 0 32px 32px;
+    }
+
+    p { font-size: 14px; }
+  }
+</style>

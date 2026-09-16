@@ -1,0 +1,72 @@
+---
+import Button from './Button.astro';
+const links = [
+  ['Home', '#home'], ['Riscos', '#riscos'], ['Adequação NR-1', '#nr1'],
+  ['Quem Somos', '#quem-somos'], ['Diferenciais', '#diferenciais'], ['Planos', '#planos']
+];
+---
+<header class="header" data-node-id="46:282">
+  <a class="brand" href="#home" aria-label="Integris Advisor">
+    <img class="brand__symbol" src="/assets/integris-symbol.svg" alt="" width="49" height="42" />
+    <img class="brand__wordmark" src="/assets/integris-wordmark.svg" alt="Integris Advisor" width="74" height="42" />
+  </a>
+  <nav aria-label="Navegação principal">
+    {links.map(([label, href]) => <a href={href}>{label}</a>)}
+  </nav>
+  <Button href="#contato">Contato</Button>
+</header>
+
+<script>
+  const header = document.querySelector<HTMLElement>('.header');
+
+  const updateHeader = () => {
+    header?.classList.toggle('header--scrolled', window.scrollY > 24);
+  };
+
+  updateHeader();
+  window.addEventListener('scroll', updateHeader, { passive: true });
+</script>
+
+<style>
+  .header {
+    position: fixed;
+    z-index: 100;
+    top: 46px;
+    left: 50%;
+    width: min(calc(100% - 48px), var(--content-width));
+    height: 57px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transform: translateX(-50%);
+    will-change: top, transform;
+    border: 1px solid transparent;
+    border-radius: 40px;
+    transition: top .25s ease, width .25s ease, height .25s ease, padding .25s ease, background-color .25s ease, border-color .25s ease, box-shadow .25s ease;
+  }
+  .header--scrolled {
+    top: 16px;
+    width: min(calc(100% - 32px), calc(var(--content-width) + 32px));
+    height: 69px;
+    padding: 6px 28px;
+    border-color: rgba(255, 255, 255, .1);
+    background: rgba(0, 0, 0, .82);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, .28);
+    backdrop-filter: blur(14px);
+  }
+  .header--scrolled :global(.button) { margin-right: -22px; }
+  .brand { display: flex; align-items: center; gap: 5px; width: 127px; height: 42px; }
+  .brand img { display: block; object-fit: contain; }
+  .brand__symbol { width: 48px; height: 42px; }
+  .brand__wordmark { width: 74px; height: 42px; }
+  nav { display: flex; align-items: center; gap: 32px; font-size: 16px; font-weight: 500; line-height: 1.55; }
+  nav a { transition: color .2s ease; }
+  nav a:hover, nav a:focus-visible { color: var(--color-gold-light); }
+  @media (max-width: 980px) { nav { display: none; } }
+  @media (max-width: 560px) {
+    .header { top: 24px; width: min(calc(100% - 32px), var(--content-width)); }
+    .header--scrolled { top: 10px; width: calc(100% - 20px); padding-inline: 16px; }
+    .header :global(.button) { min-height: 46px; padding: 10px 24px; }
+    .header--scrolled :global(.button) { margin-right: -10px; }
+  }
+</style>

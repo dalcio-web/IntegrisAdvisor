@@ -1,0 +1,257 @@
+---
+const assets = {
+  lgpd: '/assets/ebook-lgpd-mockup.png',
+  complianceBase: '/assets/ebook-reader-base.png',
+  complianceCover: '/assets/ebook-compliance-overlay.png',
+  dot: '/assets/section-dot.svg',
+};
+
+const products = [
+  {
+    id: 'lgpd',
+    title: 'E-book LGPD na Prática:',
+    strongTitle: 'Governança, Privacidade e Proteção de Dados',
+    paragraphs: [
+      'Aprenda a proteger sua empresa contra multas de até R$ 50 milhões com o guia prático de LGPD e Governança da Integris Advisor.',
+      'Este guia foi desenhado para quem precisa de resultados rápidos, segurança jurídica e governança preventiva.',
+    ],
+    href: 'https://hotmart.com/pt-br/marketplace/produtos/lgpd-na-pratica-governanca-privacidade-e-protecao-de-dados/M107106935N?sck=HOTMART_SITE',
+  },
+  {
+    id: 'compliance',
+    title: 'E-book Blindando Seu Negócio —',
+    strongTitle: 'Compliance, Integridade e Gestão de Riscos',
+    paragraphs: [
+      'A pergunta não é “quanto custa ter compliance”. É “quanto custa NÃO ter”.',
+      'Lei Anticorrupção que responsabiliza empresas de qualquer porte. Contratos e licitações que exigem comprovação de conformidade. Sócios responsabilizados pessoalmente. O cerco fechou, e quem não se organiza paga caro, ou fica de fora do jogo.',
+    ],
+    href: 'https://hotmart.com/pt-br/marketplace/produtos/blindando-seu-negocio-compliance-integridade-e-gestao-de-riscos/Q107549013S?sck=HOTMART_SITE',
+  },
+];
+---
+
+<section class="ebook-products" data-node-id="170:11">
+  <div class="ebook-products__content">
+    {products.map((product, index) => (
+      <article
+        class:list={['ebook-product', `ebook-product--${product.id}`]}
+        data-reveal
+        data-reveal-delay={80 + index * 120}
+      >
+        <div class="ebook-product__mockup" aria-hidden="true">
+          {product.id === 'lgpd' ? (
+            <img src={assets.lgpd} alt="" />
+          ) : (
+            <>
+              <img src={assets.complianceBase} alt="" />
+              <img class="ebook-product__mockup-overlay" src={assets.complianceCover} alt="" />
+            </>
+          )}
+        </div>
+
+        <div class="ebook-product__copy">
+          <p class="ebook-product__eyebrow">
+            <img src={assets.dot} alt="" width="15" height="15" />
+            <span>Produto Digital</span>
+          </p>
+
+          <h2>
+            {product.title}<br />
+            <strong>{product.strongTitle}</strong>
+          </h2>
+
+          <div class="ebook-product__description">
+            {product.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+          </div>
+
+          <a
+            href={product.href}
+            class="ebook-product__button"
+            target={product.href.startsWith('http') ? '_blank' : undefined}
+            rel={product.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+          >
+            Compre agora
+          </a>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
+
+<style>
+  .ebook-products {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    min-height: 717px;
+    margin-top: -50px;
+    padding: 149px 32px 91px;
+    overflow: hidden;
+    border-radius: 0 0 50px 50px;
+    background: #d6a73e;
+  }
+
+  .ebook-products__content {
+    display: grid;
+    width: min(100%, 1311px);
+    margin: 0 auto;
+    grid-template-columns: repeat(2, minmax(0, 633px));
+    justify-content: space-between;
+    gap: 45px;
+  }
+
+  .ebook-product {
+    display: grid;
+    min-width: 0;
+    grid-template-columns: minmax(0, 360px) minmax(0, 273px);
+    align-items: center;
+  }
+
+  .ebook-product__mockup {
+    position: relative;
+    width: 360px;
+    height: 477px;
+  }
+
+  .ebook-product__mockup img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .ebook-product__mockup-overlay { z-index: 1; }
+
+  .ebook-product--lgpd {
+    transform: translateX(-25px);
+  }
+
+  .ebook-product__copy {
+    display: flex;
+    width: 273px;
+    min-width: 0;
+    flex-direction: column;
+    color: #fff;
+  }
+
+  .ebook-product__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 30px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.55;
+  }
+
+  .ebook-product__eyebrow img {
+    width: 15px;
+    height: 15px;
+    object-fit: contain;
+  }
+
+  h2 {
+    margin: 0 0 30px;
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.25;
+    letter-spacing: -.03em;
+  }
+
+  h2 strong { font-weight: 700; }
+
+  .ebook-product__description {
+    display: flex;
+    flex-direction: column;
+    gap: 19px;
+  }
+
+  .ebook-product__description p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  .ebook-product__button {
+    display: flex;
+    width: 100%;
+    min-height: 49px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    border: 1px solid #090500;
+    border-radius: 45px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    background: linear-gradient(90deg, #090500, #2b2e37 99.99%, rgba(10, 6, 1, 0));
+    box-shadow: inset 0 0 7px rgba(255, 255, 255, .35);
+    transition: transform .25s ease, filter .25s ease;
+  }
+
+  .ebook-product__button:hover {
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+  }
+
+  .ebook-product__button:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 4px;
+  }
+
+  .ebook-product--compliance .ebook-product__copy { transform: translateY(-12px); }
+  .ebook-product--compliance .ebook-product__eyebrow { margin-bottom: 20px; }
+  .ebook-product--compliance h2 { margin-bottom: 18px; }
+  .ebook-product--compliance .ebook-product__description { gap: 19px; }
+  .ebook-product--compliance .ebook-product__button { width: 251px; margin-top: 27px; }
+
+  @media (max-width: 1380px) {
+    .ebook-products {
+      padding-right: clamp(24px, 4vw, 56px);
+      padding-left: clamp(24px, 4vw, 56px);
+    }
+
+    .ebook-products__content {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(28px, 3vw, 45px);
+    }
+
+    .ebook-product {
+      grid-template-columns: minmax(240px, 1.32fr) minmax(220px, 1fr);
+    }
+
+    .ebook-product__mockup {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 360 / 477;
+    }
+
+    .ebook-product__copy { width: 100%; }
+  }
+
+  @media (max-width: 1040px) {
+    .ebook-products { padding-top: 110px; padding-bottom: 80px; }
+    .ebook-products__content { grid-template-columns: 1fr; width: min(100%, 680px); gap: 72px; }
+    .ebook-product { grid-template-columns: minmax(280px, 360px) minmax(0, 273px); justify-content: center; }
+  }
+
+  @media (max-width: 680px) {
+    .ebook-products {
+      min-height: 0;
+      margin-top: -32px;
+      padding: 76px 24px 64px;
+      border-radius: 0 0 32px 32px;
+    }
+
+    .ebook-products__content { gap: 80px; }
+    .ebook-product { grid-template-columns: 1fr; gap: 30px; }
+    .ebook-product__mockup { width: min(100%, 330px); justify-self: center; }
+    .ebook-product--lgpd { transform: none; }
+    .ebook-product__copy { width: min(100%, 360px); margin: 0 auto; }
+    .ebook-product--compliance .ebook-product__copy { transform: none; }
+    .ebook-product--compliance .ebook-product__button { width: 100%; }
+  }
+</style>

@@ -1,0 +1,92 @@
+---
+const assets = {
+  wordmark: '/assets/integris-wordmark.svg',
+  symbol: '/assets/integris-symbol.svg',
+};
+---
+
+<footer class="footer" data-node-id="72:926">
+  <div class="footer__inner">
+    <a class="footer__brand" href="/" aria-label="Integris Advisor — voltar ao início">
+      <img class="footer__symbol" src={assets.symbol} alt="" width="75" height="65" />
+      <img class="footer__wordmark" src={assets.wordmark} alt="Integris Advisor" width="114" height="65" />
+    </a>
+
+    <p>Copyright © 2026 Integris Advisor — Todos os direitos reservados.</p>
+    <a
+      class="footer__privacy"
+      href="/politica-de-privacidade/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >Política de Privacidade</a>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    display: grid;
+    width: 100%;
+    min-height: 130px;
+    place-items: center;
+    padding: 20px 24px;
+    background: #d6a73e;
+    color: #000;
+  }
+
+  .footer__inner {
+    display: grid;
+    grid-template-columns: 160px 1fr 151px;
+    align-items: center;
+    width: min(100%, 1171px);
+    min-height: 65px;
+  }
+
+  .footer__brand {
+    display: flex;
+    width: 160px;
+    height: 53px;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .footer__symbol {
+    display: block;
+    width: 61px;
+    height: 53px;
+    object-fit: contain;
+  }
+
+  .footer__wordmark {
+    display: block;
+    width: 93px;
+    height: 53px;
+    object-fit: contain;
+  }
+
+  .footer p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.55;
+    text-align: center;
+  }
+
+  .footer__privacy {
+    justify-self: end;
+    font-size: 14px;
+    line-height: 1.55;
+    text-align: right;
+  }
+
+  .footer__privacy:hover,
+  .footer__privacy:focus-visible { text-decoration: underline; }
+
+  .footer a:focus-visible { outline: 2px solid #000; outline-offset: 5px; }
+
+  @media (max-width: 820px) {
+    .footer { padding-block: 30px; }
+    .footer__inner { grid-template-columns: 1fr; justify-items: center; gap: 26px; }
+    .footer__brand { justify-content: center; }
+    .footer__privacy { justify-self: center; text-align: center; }
+  }
+</style>

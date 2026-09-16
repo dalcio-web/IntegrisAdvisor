@@ -1,0 +1,241 @@
+---
+import Header from './Header.astro';
+import Button from './Button.astro';
+---
+<section class="hero" id="home" data-node-id="46:190">
+  <Header />
+  <div class="hero__lights" aria-hidden="true">
+    {Array.from({ length: 12 }, () => <i class="hero__light"></i>)}
+  </div>
+  <div class="hero__content">
+    <h1 data-reveal data-reveal-delay="0">Transforme o compliance de uma obrigação burocrática em uma vantagem competitiva real.</h1>
+    <p data-reveal data-reveal-delay="140">Empresas que ignoram o compliance não estão apenas arriscando multas — estão colocando em risco tudo o que construíram. Proteja o seu negócio com segurança, sem complicações e sem "juridiquês".</p>
+    <div class="hero__cta-reveal" data-reveal data-reveal-delay="280">
+      <Button class="hero__cta" href="#riscos" variant="outlined">Descobrir minha exposição</Button>
+    </div>
+  </div>
+
+  <a class="scroll-indicator" href="#riscos" aria-label="Ver conteúdo abaixo">
+    <span>Role para descobrir</span>
+    <i aria-hidden="true"></i>
+  </a>
+</section>
+
+<script>
+  const hero = document.querySelector<HTMLElement>('.hero');
+  const lights = Array.from(document.querySelectorAll<HTMLElement>('.hero__light'));
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const occupiedCells = new Set<string>();
+  let heroIsVisible = true;
+
+  const randomBetween = (minimum: number, maximum: number) =>
+    minimum + Math.random() * (maximum - minimum);
+
+  const chooseCell = () => {
+    let column = 0;
+    let row = 0;
+    let cell = '';
+
+    do {
+      column = Math.floor(randomBetween(0, 21));
+      row = Math.floor(randomBetween(0, 11));
+      cell = `${column}:${row}`;
+    } while (occupiedCells.has(cell));
+
+    occupiedCells.add(cell);
+    return { column, row, cell };
+  };
+
+  const animateLight = (light: HTMLElement, startAtRandomPoint = false) => {
+    if (!hero?.isConnected) return;
+
+    if (!heroIsVisible || document.hidden) {
+      window.setTimeout(() => animateLight(light), 900);
+      return;
+    }
+
+    const { column, row, cell } = chooseCell();
+    const duration = prefersReducedMotion.matches
+      ? randomBetween(5500, 8500)
+      : randomBetween(2600, 5200);
+    const maximumOpacity = prefersReducedMotion.matches
+      ? randomBetween(.34, .56)
+      : randomBetween(.34, .7);
+
+    light.style.left = `${-2.15 + column * 5.04}%`;
+    light.style.top = `${row * 8.45}%`;
+
+    const animation = light.animate(
+      [
+        { opacity: 0, filter: 'brightness(1)' },
+        { opacity: maximumOpacity * .32, filter: 'brightness(1.05)', offset: .16 },
+        { opacity: maximumOpacity * .82, filter: 'brightness(1.18)', offset: .48 },
+        { opacity: maximumOpacity * .3, filter: 'brightness(1.04)', offset: .82 },
+        { opacity: 0, filter: 'brightness(1)' }
+      ],
+      { duration, easing: 'ease-in-out', fill: 'both' }
+    );
+
+    if (startAtRandomPoint) {
+      animation.currentTime = randomBetween(0, duration * .82);
+    }
+
+    animation.addEventListener('finish', () => {
+      occupiedCells.delete(cell);
+      window.setTimeout(
+        () => animateLight(light),
+        prefersReducedMotion.matches
+          ? randomBetween(50, 350)
+          : randomBetween(350, 2400)
+      );
+    }, { once: true });
+  };
+
+  if (hero) {
+    const observer = new IntersectionObserver(([entry]) => {
+      heroIsVisible = entry.isIntersecting;
+    }, { threshold: .05 });
+
+    observer.observe(hero);
+    const activeLights = prefersReducedMotion.matches ? lights.slice(0, 10) : lights;
+
+    activeLights.forEach((light, index) => {
+      window.setTimeout(
+        () => animateLight(light, true),
+        index * 80 + randomBetween(0, 150)
+      );
+    });
+  }
+</script>
+
+<style>
+  .hero {
+    position: relative;
+    height: 100vh;
+    min-height: 650px;
+    padding-top: 46px;
+    background-color: #000;
+    background-image: url('/assets/BG-HERO-SECTION.png');
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    overflow: hidden;
+  }
+
+  .hero::after {
+    position: absolute;
+    z-index: 0;
+    inset: auto 0 0;
+    height: 24%;
+    background: linear-gradient(to bottom, transparent, var(--color-black) 92%);
+    pointer-events: none;
+    content: '';
+  }
+
+  :global(.hero__lights) {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  :global(.hero__light) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3.75%;
+    height: 6.6%;
+    border: 1px solid rgba(255, 223, 151, .2);
+    background: linear-gradient(
+      180deg,
+      rgba(255, 234, 184, .65),
+      rgba(200, 140, 29, .24)
+    );
+    box-shadow:
+      0 0 18px rgba(200, 140, 29, .25),
+      0 0 42px rgba(200, 140, 29, .14),
+      inset 0 0 14px rgba(255, 255, 255, .18);
+    opacity: 0;
+  }
+
+  .hero__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    height: calc(100% - 46px);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 108px 24px 120px;
+  }
+  h1 { width: min(100%, 1074px); margin: 0; font-family: var(--font-display); font-size: clamp(38px, 3.48vw, 50px); font-weight: 600; line-height: 1.15; letter-spacing: -1.5px; }
+  p { width: min(100%, 958px); margin: 42px 0 0; font-size: 16px; font-weight: 400; line-height: 1.55; }
+  .hero__cta-reveal { width: min(100%, 639px); margin-top: 49px; }
+  .hero__cta-reveal :global(.hero__cta) { width: 100%; }
+
+  .scroll-indicator {
+    position: absolute;
+    z-index: 2;
+    bottom: 24px;
+    left: 50%;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+    color: rgba(255, 255, 255, .72);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    transform: translateX(-50%);
+    transition: color .2s ease;
+  }
+
+  .scroll-indicator i {
+    display: block;
+    width: 12px;
+    height: 12px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg);
+    animation: scroll-hint 1.7s ease-in-out infinite;
+  }
+
+  .scroll-indicator:hover,
+  .scroll-indicator:focus-visible { color: var(--color-gold-light); }
+
+  .scroll-indicator:focus-visible {
+    outline: 2px solid var(--color-gold-light);
+    outline-offset: 7px;
+    border-radius: 4px;
+  }
+
+  @keyframes scroll-hint {
+    0%, 100% { opacity: .45; transform: translateY(-3px) rotate(45deg); }
+    50% { opacity: 1; transform: translateY(4px) rotate(45deg); }
+  }
+
+  @media (max-width: 720px) {
+    .hero { min-height: 700px; padding-top: 24px; }
+    .hero__content { height: calc(100% - 24px); padding: 110px 20px 120px; }
+    p { margin-top: 30px; }
+    .hero__cta-reveal { margin-top: 38px; }
+    .scroll-indicator span { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(.hero__light) {
+      box-shadow:
+        0 0 16px rgba(200, 140, 29, .24),
+        0 0 30px rgba(200, 140, 29, .12),
+        inset 0 0 12px rgba(255, 255, 255, .16);
+    }
+    .scroll-indicator i { animation: none; }
+  }
+
+  @supports (height: 100svh) {
+    .hero { height: 100svh; }
+  }
+</style>

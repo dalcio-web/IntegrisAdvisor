@@ -1,0 +1,279 @@
+---
+import PlansNotice from './PlansNotice.astro';
+
+const assets = {
+  check: '/assets/plan-check.svg',
+  dot: '/assets/plans-dot.svg',
+};
+
+const plans = [
+  {
+    price: 'R$ 3.500',
+    name: 'Essencial',
+    tagline: 'Primeiro passo com segurança',
+    features: [
+      'Diagnóstico de maturidade em compliance e LGPD.',
+      'Relatório técnico com recomendações prioritárias',
+      '2 políticas corporativas personalizadas.',
+    ],
+    delivery: 'Entrega em até 10 dias úteis.',
+  },
+  {
+    price: 'R$ 8.500',
+    name: 'Profissional',
+    tagline: 'Para estruturar um programa sólido',
+    features: [
+      'Mapeamento completo de riscos e fluxo de dados (LGPD).',
+      '6 políticas corporativas',
+      '5 sessões de mentoria semanal para garantir a implementação.',
+    ],
+    delivery: 'Entrega em até 25 dias úteis.',
+    recommended: true,
+  },
+  {
+    price: 'R$ 12.500',
+    name: 'Blindagem Total',
+    tagline: 'Nosso plano mais completo',
+    features: [
+      'Diagnóstico organizacional, mapa de riscos e controles internos,',
+      'Estruturação do canal de denúncias e capacitação.',
+      '9 políticas corporativas e 8 sessões de mentoria semanal.',
+    ],
+    delivery: 'Entrega em até 45 dias úteis.',
+  },
+  {
+    price: 'R$ 5.200',
+    badge: 'Contratável de forma independente',
+    name: 'Assessoria NR-1',
+    tagline: 'Obrigatório para empresas com empregados CLT',
+    features: [
+      'Diagnóstico de conformidade com a NR-1 atualizada.',
+      'Mapeamento risco e criação dos planos',
+      'Capacitação de liderança e CIPA.',
+    ],
+    delivery: 'Entrega em até 10 dias úteis.',
+  },
+];
+---
+
+<section class="plans" id="planos" data-node-id="46:465">
+  <div class="plans__eyebrow" data-reveal data-reveal-delay="0">
+    <img class="section-dot" src={assets.dot} alt="" width="15" height="15" />
+    <span>Planos de Consultoria</span>
+  </div>
+
+  <h2 data-reveal data-reveal-delay="90">O custo de não ter compliance é exponencialmente maior do que o custo de implementá-lo.</h2>
+  <p class="plans__description" data-reveal data-reveal-delay="170">Desenvolvemos planos fechados com valores justos e entregáveis concretos para pequenas e médias empresas.</p>
+
+  <div class="plans__grid">
+    {plans.map((plan, index) => (
+      <article
+        class:list={['plan-card', { 'plan-card--recommended': plan.recommended }]}
+        data-reveal
+        data-hover-grow
+        data-reveal-delay={260 + index * 100}
+      >
+        {plan.recommended && <div class="recommended-label">Recomendado</div>}
+
+        <div class="plan-card__top">
+          <p class="plan-card__price">{plan.price}</p>
+          {plan.badge && <span class="plan-card__badge">{plan.badge}</span>}
+          <h3>{plan.name}</h3>
+          <p class="plan-card__tagline">{plan.tagline}</p>
+        </div>
+
+        <ul>
+          {plan.features.map((feature) => (
+            <li>
+              <img src={assets.check} alt="" width="20" height="20" />
+              <span>{feature}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div class="plan-card__footer">
+          <a href="#contato" class:list={['plan-button', { 'plan-button--dark': plan.recommended }]}>Escolher Plano</a>
+          <small>{plan.delivery}</small>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
+
+<PlansNotice />
+
+<style>
+  .plans {
+    width: min(calc(100% - 48px), 1275px);
+    margin: 150px auto 0;
+    text-align: center;
+    scroll-margin-top: 110px;
+  }
+
+  .plans__eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    color: #d6a73e;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.55;
+  }
+
+  .plans__eyebrow img { width: 15px; height: 15px; }
+
+  .plans > h2 {
+    width: min(100%, 900px);
+    margin: 16px auto 0;
+    font-family: var(--font-display);
+    font-size: 38px;
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -1.14px;
+  }
+
+  .plans__description {
+    width: min(100%, 500px);
+    margin: 38px auto 0;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  .plans__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 300px);
+    align-items: start;
+    gap: 25px;
+    margin-top: 77px;
+  }
+
+  .plan-card {
+    position: relative;
+    display: flex;
+    width: 300px;
+    min-height: 502px;
+    margin-top: 17px;
+    flex-direction: column;
+    padding: 46px 25px 34px;
+    border: 1px solid #d6a73e;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, .1);
+    text-align: center;
+  }
+
+  .plan-card--recommended {
+    min-height: 536px;
+    margin-top: 0;
+    border: 0;
+    background: rgba(214, 167, 62, .88);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, .25);
+  }
+
+  .recommended-label {
+    position: absolute;
+    top: -19px;
+    left: 50%;
+    display: grid;
+    width: 184px;
+    height: 38px;
+    place-items: center;
+    border: 1px solid #d6a73e;
+    border-radius: 100px;
+    background: #000;
+    font-size: 16px;
+    font-weight: 600;
+    transform: translateX(-50%);
+  }
+
+  .plan-card__top { display: flex; flex-direction: column; align-items: center; }
+
+  .plan-card__price {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -1.44px;
+    white-space: nowrap;
+  }
+
+  .plan-card__badge {
+    display: grid;
+    width: 224px;
+    height: 25px;
+    margin-top: 10px;
+    place-items: center;
+    border-radius: 150px;
+    background: linear-gradient(90deg, var(--color-gold-dark), var(--color-gold) 50%, var(--color-gold-light));
+    color: #000;
+    font-size: 10px;
+    font-weight: 500;
+  }
+
+  .plan-card h3 {
+    margin: 30px 0 0;
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -.72px;
+  }
+
+  .plan-card__badge + h3 { margin-top: 25px; }
+
+  .plan-card__tagline {
+    min-height: 31px;
+    margin: 15px 0 0;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 1.55;
+  }
+
+  .plan-card--recommended .plan-card__tagline { font-size: 16px; font-weight: 400; }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin: 25px 0 0;
+    padding: 0;
+    text-align: left;
+    list-style: none;
+  }
+
+  li { display: flex; align-items: center; gap: 10px; min-height: 20px; font-size: 12px; line-height: 1.55; }
+  li img { flex: 0 0 20px; width: 20px; height: 20px; }
+
+  .plan-card__footer { margin-top: auto; }
+
+  .plan-button {
+    display: grid;
+    width: 250px;
+    min-height: 49px;
+    place-items: center;
+    border: 1px solid var(--color-gold);
+    border-radius: 45px;
+    background: linear-gradient(90deg, var(--color-gold-dark), var(--color-gold) 50%, var(--color-gold-light));
+    box-shadow: inset 0 0 7px rgba(255, 255, 255, .35);
+    font-size: 16px;
+    font-weight: 600;
+    transition: filter .2s ease, transform .2s ease;
+  }
+
+  .plan-button--dark { border-color: #090500; background: linear-gradient(90deg, #090500, #2b2e37 99.99%, rgba(10, 6, 1, 0)); }
+  .plan-button:hover { filter: brightness(1.06); transform: translateY(-1px); }
+  .plan-button:focus-visible { outline: 2px solid var(--color-gold-light); outline-offset: 4px; }
+
+  small { display: block; margin-top: 5px; font-size: 10px; font-style: italic; line-height: 1.55; }
+
+  @media (max-width: 1120px) {
+    .plans__grid { grid-template-columns: repeat(2, 300px); justify-content: center; row-gap: 42px; }
+  }
+
+  @media (max-width: 680px) {
+    .plans { width: calc(100% - 32px); }
+    .plans > h2 { font-size: 34px; }
+    .plans__grid { grid-template-columns: minmax(0, 300px); }
+  }
+</style>
